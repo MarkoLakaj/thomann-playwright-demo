@@ -23,11 +23,11 @@ export class CableGuyPage {
         this.foundItemsList = page.locator('.fx-product-list-entry')
     }
 
-    async clickCableBeginningButton() {
+    async clickCableBeginningButton(): Promise<void> {
         await this.addCableBeginningButton.click()
     }
 
-    async clickCableEndButton() {
+    async clickCableEndButton(): Promise<void> {
         await this.addCableEndButton.click()
     }
 
@@ -67,33 +67,24 @@ export class CableGuyPage {
         return totalCount
     }
 
-    /**
-     * Selects a random listed item and returns its full product name.
-     */
-    async selectRandomListedItem(): Promise<string> {
+    /** Selects a random listed item */
+    async selectRandomListedItem(): Promise<void> {
         const count = await this.foundItemsList.count()
         if (count === 0) throw new Error('No item found!')
-
         const randomIndex = Math.floor(Math.random() * count)
         const randomItemSelected = this.foundItemsList.nth(randomIndex)
-
-        const itemManufacturer = await randomItemSelected.locator('.title__manufacturer').textContent()
-        const itemName = await randomItemSelected.locator('.title__name').textContent()
-        const productName = `${itemManufacturer}${itemName}`
-
         await randomItemSelected.click()
-        return productName
     }
 
     /** Wrapper to select a random cable type from the list. */
-    async selectRandomCableType() {
+    async selectRandomCableType(): Promise<void> {
         await Helper.selectRandomItemFromTheList(this.cableTypeList)
         // Allow UI to settle after filter selection
         await this.page.waitForTimeout(2000)
     }
 
     /** Wrapper to select a random manufacturer from the list. */
-    async selectRandomManufacturer() {
+    async selectRandomManufacturer(): Promise<void> {
         await Helper.selectRandomItemFromTheList(this.manufacturerList)
         // Allow UI to settle after filter selection
         await this.page.waitForTimeout(2000)

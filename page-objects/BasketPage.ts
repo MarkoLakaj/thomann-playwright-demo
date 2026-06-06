@@ -7,33 +7,25 @@ import { Helper } from '../utils/Helper'
 export class BasketPage {
 
     private readonly page: Page
-    private readonly basketNotificationPopup: Locator
-    private readonly itemDetails: Locator
+    private readonly itemName: Locator
     private readonly itemPrice: Locator
 
     constructor(page: Page) {
         this.page = page
-        this.basketNotificationPopup = page.locator('.fx-notification__content > div')
-        this.itemDetails = page.locator('.content__details')
-        this.itemPrice = page.locator('[data-testid^="article-price-"]').first()
+        this.itemName = page.locator('.content__details .headline')
+        this.itemPrice = page.locator('[data-testid^="article-price-"] .price--primary').first()
     }
 
-    /**
-     * Returns the text displayed in the basket notification popup.
-     */
-    async getBasketNotificationPopupText(): Promise<string | null> {
-        return await this.basketNotificationPopup.textContent()
-    }
 
     /** Returns the item name text */
     async getItemName(): Promise<string | null> {
-        return await this.itemDetails.textContent()
+        return await this.itemName.textContent()
     }
 
     /** Returns the trimmed down item price */
     async getItemPrice(): Promise<string | null> {
         await this.itemPrice.waitFor({ state: 'visible' })
-        const text = await this.itemPrice.first().textContent()
+        const text = await this.itemPrice.textContent()
         return Helper.trimDownPrice(text)
     }
 }

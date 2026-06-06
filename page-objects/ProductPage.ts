@@ -16,7 +16,7 @@ export class ProductPage {
         this.page = page
         this.productName = page.locator('.product-title [itemprop="name"]')
         this.addToBasketButton = page.getByTestId('add-to-cart-button')
-        this.productPrice = page.locator('.price.fx-text.fx-text--no-margin')
+        this.productPrice = page.locator('.price.fx-text.fx-text--no-margin').first()
     }
 
     /** Returns the normalized product name */
@@ -33,7 +33,7 @@ export class ProductPage {
     /** Returns the trimmed down product price */
     async getProductPrice(): Promise<string | null> {
         await this.productPrice.waitFor({ state: 'visible' })
-        const text = await this.productPrice.textContent()
+        const text = await this.productPrice.evaluate(el => el.firstChild?.textContent ?? '')
         return Helper.trimDownPrice(text)
     }
 }
