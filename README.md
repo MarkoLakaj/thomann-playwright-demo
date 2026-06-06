@@ -81,5 +81,6 @@ npx playwright show-report
 ## 📌 Notes
 - Tests run against the live Thomann.de production environment — no staging environment was identified
 - Some selectors on the Cable Guy page rely on CSS classes due to absence of `data-testid` attributes on the React components
+- Given the time constraints, a dedicated exploratory session for bug reporting was out of scope
 - See `INVESTIGATION_NOTES.md` for detailed findings and reasoning
 - See `AI_DISCLOSURE.md` for AI usage declaration
