@@ -15,7 +15,7 @@ export class BasketPage {
         this.page = page
         this.basketNotificationPopup = page.locator('.fx-notification__content > div')
         this.itemDetails = page.locator('.content__details')
-        this.itemPrice = page.locator('[data-testid^="article-price-"]')
+        this.itemPrice = page.locator('[data-testid^="article-price-"]').first()
     }
 
     /**
@@ -32,7 +32,7 @@ export class BasketPage {
 
     /** Returns the trimmed down item price */
     async getItemPrice(): Promise<string | null> {
-        await this.itemPrice.first().waitFor({ state: 'visible' })
+        await this.itemPrice.waitFor({ state: 'visible' })
         const text = await this.itemPrice.first().textContent()
         return Helper.trimDownPrice(text)
     }

@@ -1,4 +1,4 @@
-import { test, expect } from '../utils/fixtures'
+import { test, expect } from '../utils/Fixtures'
 
 test('Should add the correct cable to the basket after random selection', async ({ page, pageManager }) => {
 
@@ -29,7 +29,9 @@ test('Should add the correct cable to the basket after random selection', async 
     await pageManager.onProductPage().addProductToBasket()
     const popupText = await pageManager.onBasketPage().getBasketNotificationPopupText()
     expect(popupText).toContain(productName)
+
     // Verify the correct name and price of the product in basket
     expect(await pageManager.onBasketPage().getItemName()).toContain(productName)
     expect(await pageManager.onBasketPage().getItemPrice()).toContain(productPrice)
+
 })
