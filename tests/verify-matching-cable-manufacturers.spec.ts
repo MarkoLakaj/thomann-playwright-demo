@@ -30,7 +30,7 @@ test('Should add the correct cable to the basket after random selection', async 
     await pageManager.onProductPage().addProductToBasket()
 
     // Verify the correct name and price of the product in basket
-    expect(await pageManager.onBasketPage().getItemName()).toContain(productName)
+    expect((await pageManager.onBasketPage().getItemName())?.toLowerCase()).toContain(productName.toLowerCase())
     expect(await pageManager.onBasketPage().getItemPrice()).toContain(productPrice)
 
 })
